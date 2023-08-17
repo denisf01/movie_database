@@ -9,14 +9,6 @@ const routes: Routes = [
     redirectTo: 'auth',
     pathMatch: 'full',
   },
-  {
-    path: 'auth',
-    component: AuthComponent,
-  },
-  {
-    path: 'movies',
-    component: MovieListComponent,
-  },
 ];
 
 @NgModule({
