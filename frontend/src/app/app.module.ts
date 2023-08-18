@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { MovieModule } from './movie/movie.module';
 import { MovieDetailsComponent } from './movie/components/movie-details/movie-details.component';
+import { ReviewComponent } from './review/components/review/review.component';
 
 @NgModule({
   declarations: [AppComponent],
