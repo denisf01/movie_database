@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { MovieModule } from './movie/movie.module';
 import { MovieDetailsComponent } from './movie/components/movie-details/movie-details.component';
 import { ReviewComponent } from './review/components/review/review.component';
+import { MovieFormComponent } from './admin/components/movie-form/movie-form.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +18,7 @@ import { ReviewComponent } from './review/components/review/review.component';
     BrowserAnimationsModule,
     AuthModule,
     MovieModule,
+    AdminModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
