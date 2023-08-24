@@ -1,0 +1,24 @@
+.active {
+  //text-decoration: underline;
+  transform: scale(1.2);
+  font-weight: bold;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-family: Arial, serif;
+  transition: transform 0.5s;
+  margin: 1rem;
+}
+
+a:hover {
+  //background-color: #323232;
+  border-radius: 6px;
+  transform: scale(1.2);
+  color: red;
+  font-weight: bold;
+}
+.title {
+  font-family: "Comic Sans MS", serif;
+}

@@ -1,0 +1,46 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="movie-details">
+  <div style="height: 100%" class="row">
+    <div
+      class="movie-poster col-md-4"
+      [ngStyle]="{ 'background-image': getUrl() }"
+    ></div>
+    <div class="col-md-8">
+      <mat-tab-group
+        dynamicHeight
+        mat-stretch-tabs="false"
+        mat-align-tabs="center"
+      >
+        <mat-tab label="Movie">
+          <div class="movie-tab">
+            <h1 style="height: 5vh">{{ movie.title }}</h1>
+            <div style="height: 5vh">
+              <span>{{ movie.release_year }}</span> |
+              <span
+                >{{ movie.rating_value === 0 ? "-" : movie.rating_value }}/10
+                <mat-icon style="color: yellow">grade</mat-icon></span
+              >
+              |
+              <span class="genre-item" *ngFor="let genre of movie.genres">{{
+                genre.name
+              }}</span>
+            </div>
+
+            <div style="margin-top: 3rem; height: 20vh; text-align: justify">
+              {{ movie.description }}
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Reviews">
+          <div class="review-tab">
+            <app-review [movie]="movie"></app-review>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+
+  <!--  <div class="movie-details-actions">-->
+  <!--    <button mat-raised-button (click)="onClose()">Close</button>-->
+  <!--  </div>-->
+</div>

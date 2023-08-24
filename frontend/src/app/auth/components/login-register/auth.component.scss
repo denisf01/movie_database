@@ -1,0 +1,26 @@
+.background {
+  background-image: url("../../../../assets/images/loginBackground2.jpg");
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.form {
+  text-align: center;
+  position: absolute;
+  padding: 10px;
+  top: 30%;
+  left: 10%;
+  width: 40%;
+  display: block;
+}
+
+.login-icon {
+  transform: scale(3);
+  margin-bottom: 3rem;
+  //color: #c2185b;
+  color: white;
+}

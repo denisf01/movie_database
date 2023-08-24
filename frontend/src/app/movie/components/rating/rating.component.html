@@ -1,0 +1,17 @@
+<div class="container">
+  <!--  <p style="font-size: xx-small" *ngIf="!!rating">-->
+  <!--    Your rated <span>{{ rating }}</span-->
+  <!--    >/<span>{{ totalStar }}</span>-->
+  <!--  </p>-->
+  <button
+    mat-icon-button
+    color="accent"
+    *ngFor="let ratingId of ratingArray; index as i"
+    [id]="'star_' + i"
+    (click)="calculateRating(i + 1)"
+  >
+    <mat-icon>
+      {{ iconStatus(i) }}
+    </mat-icon>
+  </button>
+</div>

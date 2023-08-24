@@ -1,0 +1,39 @@
+* {
+  overflow: hidden;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 50;
+}
+.movie-form {
+  position: fixed;
+  top: 10vh;
+  left: 25vw;
+  border-radius: 10px;
+  width: 50vw;
+  padding: 2rem;
+  //height: 70vh;
+  z-index: 100;
+  background: #424242;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.form {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.example-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 55%;
+}

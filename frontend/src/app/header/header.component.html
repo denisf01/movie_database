@@ -1,0 +1,49 @@
+<p>
+  <mat-toolbar>
+    <mat-icon style="color: red">movie</mat-icon>
+    <span class="title">Movies Database</span>
+    <button (click)="onAdd()" *ngIf="isAdmin" mat-button type="button">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+
+    <a routerLink="/movies" routerLinkActive="active">Movies</a>
+    <mat-icon>theaters</mat-icon>
+    <a routerLink="/watchlist" routerLinkActive="active">Watchlist</a>
+
+    <span class="example-spacer"></span>
+
+    <!--    <input #searchInput matInput type="text" />-->
+
+    <input matInput type="text" [(ngModel)]="value" />
+    <button
+      *ngIf="value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="onClear()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button
+      (click)="onSearchClick()"
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+    |
+
+    <button
+      routerLink="../auth"
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+      (click)="onLogout()"
+    >
+      <mat-icon style="color: red">logout</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>

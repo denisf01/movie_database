@@ -1,0 +1,54 @@
+<mat-card class="example-card">
+  <img
+    class="movie-poster"
+    mat-card-image
+    [src]="movie.img_url"
+    alt="Movie Img"
+  />
+  <mat-card-content>
+    <div class="row">
+      <div class="col-sm-7">
+        <h3>{{ movie.title }}</h3>
+      </div>
+      <div class="col-sm-5">
+        <small
+          >{{ movie.rating_value === 0 ? "-" : movie.rating_value }}/10</small
+        >
+        <mat-icon class="icon-display">grade</mat-icon>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Genre <br />
+        <!--        <mat-grid-list cols="2" rowHeight="1:0.5">-->
+        <!--          <mat-grid-tile *ngFor="let genre of movie.genres">-->
+        <!--            <div class="genre-item">{{ genre.name }}</div>-->
+        <!--          </mat-grid-tile>-->
+        <!--        </mat-grid-list>-->
+        <span class="genre-item" *ngFor="let genre of movie.genres">
+          {{ genre.name }}
+        </span>
+      </div>
+
+      <div style="text-align: center" class="col-sm-6">
+        <small>Release year</small>
+        {{ movie.release_year }}
+      </div>
+    </div>
+  </mat-card-content>
+  <span style="flex: 1 1 auto"></span>
+  <mat-card-actions>
+    <button mat-button (click)="onClick($event)">
+      {{ movieService.checkWatchlist(movie.id) ? "REMOVE FROM" : "ADD TO" }}
+      WATCHLIST
+    </button>
+    <!--    <span style="width: 40%; margin: auto">-->
+    <button (click)="onEdit($event)" *ngIf="isAdmin" mat-button>
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button (click)="onDelete($event)" *ngIf="isAdmin" mat-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+    <!--    </span>-->
+  </mat-card-actions>
+</mat-card>

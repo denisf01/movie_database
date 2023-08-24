@@ -1,0 +1,43 @@
+<h3>User Reviews</h3>
+<div class="review" id="style-1">
+  <mat-list>
+    <div *ngFor="let review of reviews">
+      <mat-list-item>
+        <span matListItemTitle
+          >{{ review.userEmail + " - " + review.rating
+          }}<mat-icon style="color: yellow">star</mat-icon></span
+        >
+        <span style="height: 10rem" matListItemLine>
+          {{ review.message }}
+        </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+</div>
+<div style="text-align: center">
+  <div>
+    <mat-star-rating
+      [rating]="rating"
+      (ratingUpdated)="onRatingChanged($event)"
+    ></mat-star-rating>
+  </div>
+  <textarea
+    placeholder="Write short review:"
+    #reviewInput
+    class="mat-input-wrapper"
+    matInput
+  ></textarea>
+  <div>
+    <button
+      *ngIf="!error"
+      [disabled]="reviewInput.value.length === 0 || !rating"
+      (click)="onSubmit(reviewInput)"
+      color="primary"
+      mat-raised-button
+    >
+      Submit
+    </button>
+    <div class="alert alert-danger" *ngIf="!!error">{{ error }}</div>
+  </div>
+</div>
