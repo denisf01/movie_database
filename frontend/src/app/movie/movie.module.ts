@@ -18,6 +18,7 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { AdminModule } from '../admin/admin.module';
 import { MovieFormComponent } from '../admin/components/movie-form/movie-form.component';
+import { ModalComponent } from '../shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MovieFormComponent } from '../admin/components/movie-form/movie-form.co
     MatListModule,
     MatDividerModule,
     MatGridListModule,
+    ModalComponent,
     RouterModule.forChild([
       {
         path: 'watchlist',
@@ -71,5 +73,6 @@ import { MovieFormComponent } from '../admin/components/movie-form/movie-form.co
     ]),
     MatInputModule,
   ],
+  exports: [],
 })
 export class MovieModule {}

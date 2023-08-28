@@ -1,0 +1,40 @@
+<app-modal [width]="30" [open]="open">
+  <div style="text-align: center; padding: 2rem">
+    <mat-form-field>
+      <mat-label>Filter by genres</mat-label>
+      <mat-select [formControl]="genreInput" multiple>
+        <mat-select-trigger>
+          {{genreInput.value?.[0] ? genreInput.value?.[0].name : ''}}
+          <span
+            *ngIf="(genreInput.value?.length || 0) > 1"
+            class="example-additional-selection"
+          >
+            (+{{ (genreInput.value?.length || 0) - 1 }}
+            {{ genreInput.value?.length === 2 ? "other" : "others" }})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let genre of genreList" [value]="genre">{{
+          genre.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button (click)="onSubmit()" mat-raised-button color="primary">
+        Submit
+      </button>
+      |
+      <button (click)="onReset()" mat-raised-button color="primary">
+        Reset
+      </button>
+    </div>
+    <div style="margin-top: 1rem">
+      <mat-slide-toggle
+        [(ngModel)]="sortByRating"
+        (change)="onChange()"
+        class="example-margin"
+      >
+        Sort by rating
+      </mat-slide-toggle>
+    </div>
+  </div>
+</app-modal>

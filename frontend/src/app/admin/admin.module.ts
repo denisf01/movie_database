@@ -7,6 +7,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { ModalComponent } from '../shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [MovieFormComponent],
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     ReactiveFormsModule,
     MatButtonModule,
+    ModalComponent,
   ],
   exports: [MovieFormComponent],
 })

@@ -9,6 +9,7 @@ import { MovieDetailsComponent } from './movie/components/movie-details/movie-de
 import { ReviewComponent } from './review/components/review/review.component';
 import { MovieFormComponent } from './admin/components/movie-form/movie-form.component';
 import { AdminModule } from './admin/admin.module';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [AppComponent],

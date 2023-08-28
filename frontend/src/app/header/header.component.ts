@@ -11,8 +11,12 @@ import {
 } from '@angular/router';
 import { NgIf, UpperCasePipe } from '@angular/common';
 import { AuthService } from '../auth/services/auth.service';
-import { MovieService } from '../movie/services/movie.service';
+import { Filter, MovieService } from '../movie/services/movie.service';
 import { FormsModule } from '@angular/forms';
+import { ModalComponent } from '../shared/components/modal/modal.component';
+import { MovieModule } from '../movie/movie.module';
+import { FilteringComponent } from '../movie/components/filtering/filtering.component';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 /**
  * @title Toolbar overview
@@ -29,13 +33,19 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     FormsModule,
     RouterLinkActive,
+    FilteringComponent,
     RouterLink,
     UpperCasePipe,
     NgIf,
   ],
 })
 export class HeaderComponent implements OnInit {
-  value: string = '';
+  openModal = new BehaviorSubject<boolean>(false);
+  value: Filter = {
+    search: '',
+    sortByRating: false,
+    filterGenres: [],
+  };
   isAdmin: boolean;
   constructor(
     private authService: AuthService,
@@ -46,23 +56,22 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isAdmin = this.authService.isAdmin;
+    this.value = this.movieService.getMovieFilter();
   }
 
   onLogout() {
     this.authService.logout();
   }
 
-  onSearchClick() {
-    this.movieService.setMovieFilter(this.value);
-  }
+  onFilterClick() {}
   // onSearchClick(searchInput: HTMLInputElement) {
   //   this.movieService.setMovieFilter(searchInput.value);
   // }
-  onClear() {
-    this.value = '';
-    this.movieService.setMovieFilter('');
-  }
+
   onAdd() {
     this.router.navigate(['add'], { relativeTo: this.route });
+  }
+  onChange() {
+    this.movieService.setMovieFilter(this.value);
   }
 }

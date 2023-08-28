@@ -1,0 +1,12 @@
+<div *ngIf="isOpen" class="backdrop" (click)="onClose()"></div>
+<div
+  [ngStyle]="{
+    width: width ? width + 'vw' : '50vw',
+    height: height ? height + 'vh' : 'auto',
+    left: width ? (100 - width) / 2 + 'vw' : '25vw'
+  }"
+  *ngIf="isOpen"
+  class="container"
+>
+  <ng-content></ng-content>
+</div>

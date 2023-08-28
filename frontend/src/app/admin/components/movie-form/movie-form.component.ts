@@ -15,6 +15,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Genre } from '../../../movie/models/genre.model';
 import { MovieService } from '../../../movie/services/movie.service';
 import { Movie } from '../../../movie/models/movie.model';
+import { BehaviorSubject } from 'rxjs';
 
 class CustomDateAdapter extends NativeDateAdapter {
   override format(date: Date): string {
@@ -46,6 +47,7 @@ class CustomDateAdapter extends NativeDateAdapter {
 export class MovieFormComponent implements OnInit {
   isEdit: boolean;
   id: number;
+  open = new BehaviorSubject(true);
   get movie() {
     return this.movieService.getMovie(this.id);
   }
@@ -67,6 +69,9 @@ export class MovieFormComponent implements OnInit {
       this.id = +this.route.snapshot.paramMap.get('id');
       this.loadMovie(this.id);
     }
+    this.open.subscribe((value) => {
+      if (!value) this.onClose();
+    });
   }
 
   constructor(

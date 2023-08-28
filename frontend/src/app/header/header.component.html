@@ -15,24 +15,21 @@
 
     <!--    <input #searchInput matInput type="text" />-->
 
-    <input matInput type="text" [(ngModel)]="value" />
-    <button
-      *ngIf="value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="onClear()"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
+    <input
+      style="border-radius: 10px"
+      matInput
+      (input)="onChange()"
+      type="text"
+      [(ngModel)]="value.search"
+    />
 
     <button
-      (click)="onSearchClick()"
+      (click)="openModal.next(true)"
       mat-icon-button
       class="example-icon"
       aria-label="Example icon-button with share icon"
     >
-      <mat-icon>search</mat-icon>
+      <mat-icon>tune</mat-icon>
     </button>
     |
 
@@ -47,3 +44,5 @@
     </button>
   </mat-toolbar>
 </p>
+
+<app-filtering [open]="openModal"></app-filtering>

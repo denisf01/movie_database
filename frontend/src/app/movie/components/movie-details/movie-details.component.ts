@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
 import { ReviewService } from '../../../review/services/review.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -11,7 +12,7 @@ import { ReviewService } from '../../../review/services/review.service';
 })
 export class MovieDetailsComponent implements OnInit {
   movie: Movie;
-
+  open = new BehaviorSubject<boolean>(true);
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,7 +23,10 @@ export class MovieDetailsComponent implements OnInit {
   ngOnInit() {
     this.movie = this.movieService.getMovie(+this.route.snapshot.params['id']);
     this.movieService.movieSubject.subscribe((movies: Movie[]) => {
-      this.movie = movies.find((el) => el.id === this.movie.id);
+      if (!!movies) this.movie = movies.find((el) => el.id === this.movie.id);
+    });
+    this.open.subscribe((value) => {
+      if (!value) this.onClose();
     });
   }
 

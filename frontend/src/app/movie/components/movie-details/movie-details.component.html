@@ -1,5 +1,6 @@
-<div class="backdrop" (click)="onClose()"></div>
-<div class="movie-details">
+<!--<div class="backdrop" (click)="onClose()"></div>-->
+<!--<div class="movie-details">-->
+<app-modal [width]="70" [height]="70" [open]="open">
   <div style="height: 100%" class="row">
     <div
       class="movie-poster col-md-4"
@@ -39,8 +40,9 @@
       </mat-tab-group>
     </div>
   </div>
+</app-modal>
 
-  <!--  <div class="movie-details-actions">-->
-  <!--    <button mat-raised-button (click)="onClose()">Close</button>-->
-  <!--  </div>-->
-</div>
+<!--  <div class="movie-details-actions">-->
+<!--    <button mat-raised-button (click)="onClose()">Close</button>-->
+<!--  </div>-->
+<!--</div>-->

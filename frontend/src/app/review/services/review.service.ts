@@ -39,6 +39,6 @@ export class ReviewService {
         review.rating) /
       ratingCount;
     this.movieService.movies[index].rating = +newRatingValue.toFixed(2);
-    this.movieService.movieSubject.next(this.movieService.movies.slice());
+    this.movieService.movieSubject.next(this.movieService.getMovies());
   }
 }

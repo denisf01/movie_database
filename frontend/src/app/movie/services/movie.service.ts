@@ -65,15 +65,18 @@ export class MovieService {
   movieSubject = new Subject<Movie[]>();
   watchlistSubject = new Subject<Movie[]>();
 
-  private movieFilter = '';
+  private movieFilter: Filter = {
+    search: '',
+    sortByRating: false,
+    filterGenres: [],
+  };
 
   private watchlist: Movie[] = [];
 
-  setMovieFilter(filter: string) {
+  setMovieFilter(filter: Filter) {
     this.movieFilter = filter;
-    this.movieSubject.next(
-      this.movies.filter((movie) => movie.title.includes(this.movieFilter))
-    );
+    this.movieSubject.next(this.getMovies());
+    this.watchlistSubject.next(this.getWatchlist());
   }
 
   addToWatchlist(movie: Movie) {
@@ -83,17 +86,48 @@ export class MovieService {
   getGenres() {
     return this.genres.slice();
   }
+  getMovieFilter() {
+    return this.movieFilter;
+  }
   removeFromWatchlist(id: number) {
     this.watchlist = this.watchlist.filter((movie) => movie.id !== id);
-    this.watchlistSubject.next(this.watchlist.slice());
+    this.watchlistSubject.next(this.getWatchlist());
   }
   getWatchlist() {
-    return this.watchlist.slice();
+    return this.watchlist
+      .filter((movie) => {
+        return (
+          movie.title.includes(this.movieFilter.search) &&
+          this.filterGenres(this.movieFilter.filterGenres, movie)
+        );
+      })
+      .sort((el1, el2) => {
+        if (this.movieFilter.sortByRating) {
+          return el2.rating_value - el1.rating_value;
+        } else {
+          if (el1.title.toUpperCase() > el2.title.toUpperCase()) return 1;
+          if (el1.title.toUpperCase() < el2.title.toUpperCase()) return -1;
+          return 0;
+        }
+      });
   }
   getMovies() {
-    return this.movies.filter((movie) =>
-      movie.title.includes(this.movieFilter)
-    );
+    return this.movies
+      .filter((movie) => {
+        return (
+          movie.title.includes(this.movieFilter.search) &&
+          this.filterGenres(this.movieFilter.filterGenres, movie)
+        );
+      })
+      .sort((el1, el2) => {
+        if (this.movieFilter.sortByRating) {
+          return el2.rating_value - el1.rating_value;
+        } else {
+          if (el1.title.toUpperCase() > el2.title.toUpperCase()) return 1;
+          if (el1.title.toUpperCase() < el2.title.toUpperCase()) return -1;
+          return 0;
+        }
+      });
   }
   getMovie(id: number) {
     return this.movies.find((movie) => movie.id === id);
@@ -117,4 +151,16 @@ export class MovieService {
     this.movies[index] = movie;
     this.movieSubject.next(this.getMovies());
   }
+  private filterGenres(genres: Genre[], movie: Movie) {
+    for (let genre of genres) {
+      if (!movie.genres.includes(genre)) return false;
+    }
+    return true;
+  }
+}
+
+export interface Filter {
+  search: string;
+  sortByRating: boolean;
+  filterGenres: Genre[];
 }

@@ -1,80 +1,88 @@
-<div class="backdrop" (click)="onClose()"></div>
-<div class="movie-form">
-  <h1 style="text-align: center; color: white">
-    {{ isEdit ? "Edit Movie" : "Add Movie" }}
-  </h1>
-  <div class="form">
-    <form (ngSubmit)="onSubmit()" [formGroup]="movieForm" class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Title</mat-label>
-        <input formControlName="title" matInput />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Release Year</mat-label>
-        <input
-          [max]="maxDate"
-          matInput
-          placeholder="YYYY"
-          [matDatepicker]="datePicker"
-          formControlName="releaseYear"
-          (focus)="datePicker?.open()"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="datePicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker
-          #datePicker
-          color="primary"
-          startView="multi-year"
-          (yearSelected)="onYearSelected($event, datePicker)"
-        ></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Movie Image</mat-label>
-        <input formControlName="movieImg" matInput />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Genres</mat-label>
-        <mat-select formControlName="genres" multiple>
-          <mat-select-trigger>
-            {{movieForm.get("genres").value?.[0] ? movieForm.get("genres").value?.[0].name  : ''}}
-            <span
-              *ngIf="(movieForm.get('genres').value?.length || 0) > 1"
-              class="example-additional-selection"
-            >
-              (+{{ (movieForm.get("genres").value?.length || 0) - 1 }}
-              {{
-                movieForm.get("genres").value?.length === 2
-                  ? "other"
-                  : "others"
-              }})
-            </span>
-          </mat-select-trigger>
+<!--<div class="backdrop" (click)="onClose()"></div>-->
+<!--<div class="movie-form">-->
+<app-modal [open]="open">
+  <div style="padding: 2rem">
+    <h1 style="text-align: center; color: white">
+      {{ isEdit ? "Edit Movie" : "Add Movie" }}
+    </h1>
+    <div class="form">
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="movieForm"
+        class="example-form"
+      >
+        <mat-form-field class="example-full-width">
+          <mat-label>Title</mat-label>
+          <input formControlName="title" matInput />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Release Year</mat-label>
+          <input
+            [max]="maxDate"
+            matInput
+            placeholder="YYYY"
+            [matDatepicker]="datePicker"
+            formControlName="releaseYear"
+            (focus)="datePicker?.open()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #datePicker
+            color="primary"
+            startView="multi-year"
+            (yearSelected)="onYearSelected($event, datePicker)"
+          ></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Movie Image</mat-label>
+          <input formControlName="movieImg" matInput />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Genres</mat-label>
+          <mat-select formControlName="genres" multiple>
+            <mat-select-trigger>
+              {{movieForm.get("genres").value?.[0] ? movieForm.get("genres").value?.[0].name  : ''}}
+              <span
+                *ngIf="(movieForm.get('genres').value?.length || 0) > 1"
+                class="example-additional-selection"
+              >
+                (+{{ (movieForm.get("genres").value?.length || 0) - 1 }}
+                {{
+                  movieForm.get("genres").value?.length === 2
+                    ? "other"
+                    : "others"
+                }})
+              </span>
+            </mat-select-trigger>
 
-          <mat-option *ngFor="let genre of genreList" [value]="genre">{{
-            genre.name
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Description</mat-label>
-        <textarea
-          style="resize: none"
-          formControlName="description"
-          matInput
-        ></textarea>
-      </mat-form-field>
-      <div>
-        <button
-          [disabled]="movieForm.invalid"
-          type="submit"
-          mat-raised-button
-          color="primary"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+            <mat-option *ngFor="let genre of genreList" [value]="genre">{{
+              genre.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            style="resize: none"
+            formControlName="description"
+            matInput
+          ></textarea>
+        </mat-form-field>
+        <div>
+          <button
+            [disabled]="movieForm.invalid"
+            type="submit"
+            mat-raised-button
+            color="primary"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+</app-modal>
+<!--</div>-->
