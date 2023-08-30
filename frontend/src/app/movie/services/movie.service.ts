@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../models/movie.model';
 import { Genre } from '../models/genre.model';
-import { findIndex, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
@@ -148,6 +148,7 @@ export class MovieService {
   }
   editMovie(movie: Movie) {
     const index = this.movies.findIndex((el) => el.id === movie.id);
+    if (index === -1) return;
     this.movies[index] = movie;
     this.movieSubject.next(this.getMovies());
   }

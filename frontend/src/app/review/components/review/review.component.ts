@@ -39,7 +39,7 @@ export class ReviewComponent implements OnInit {
         this.rating
       ),
       () => {
-        this.error = 'You already wrote review!';
+        this.error = 'You already wrote a review!';
       }
     );
     reviewInput.value = '';

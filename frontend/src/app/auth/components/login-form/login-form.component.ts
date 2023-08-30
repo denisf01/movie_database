@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { emailValidator } from './emailValidator';
 
 /** @title Form field with error messages */
 @Component({
@@ -47,7 +48,7 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup<any>({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, emailValidator]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -61,7 +62,7 @@ export class LoginFormComponent implements OnInit {
         return 'You must enter a value';
       }
 
-      return this.loginForm.get('password')!.hasError('email')
+      return this.loginForm.get('email')!.hasError('email')
         ? 'Not a valid email'
         : '';
     } else {

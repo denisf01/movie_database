@@ -19,6 +19,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { AdminModule } from '../admin/admin.module';
 import { MovieFormComponent } from '../admin/components/movie-form/movie-form.component';
 import { ModalComponent } from '../shared/components/modal/modal.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
     MatDividerModule,
     MatGridListModule,
     ModalComponent,
+    HttpClientModule,
     RouterModule.forChild([
       {
         path: 'watchlist',

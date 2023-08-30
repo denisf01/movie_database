@@ -2,18 +2,27 @@ import { Injectable, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { BehaviorSubject, map, Subject, take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpResponse,
+} from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   users: User[] = [
-    new User('test@test.com', '123456'),
-    new User('admin@admin.com', 'adminadmin'),
+    new User(2, 'test@test.com', '123456'),
+    new User(0, 'admin', 'adminadmin'),
   ];
   loggedInUser = new BehaviorSubject<User>(null);
   get isAdmin() {
-    return this.loggedInUser.getValue().email === 'admin@admin.com';
+    return this.loggedInUser.getValue().id === 0;
   }
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   login(email: string, password: string) {
     return new Promise((resolve, reject) => {
@@ -34,13 +43,26 @@ export class AuthService {
 
   register(email: string, password: string) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (this.users.findIndex((user) => user.email === email) !== -1) {
-          reject(new Error('User already exists!'));
-        }
-        this.users.push(new User(email, password));
-        resolve(null);
-      }, 1);
+      this.http
+        .post('/api/users', {
+          email,
+          password,
+        })
+        .subscribe(
+          (response: HttpResponse<any>) => {
+            resolve(null);
+          },
+          (error: HttpErrorResponse) => {
+            reject(new Error(error.error.message));
+          }
+        );
+      // setTimeout(() => {
+      //   if (this.users.findIndex((user) => user.email === email) !== -1) {
+      //     reject(new Error('User already exists!'));
+      //   }
+      //   this.users.push(new User(email, password));
+      //   resolve(null);
+      // }, 1);
     });
   }
 
@@ -50,7 +72,7 @@ export class AuthService {
   }
 
   autoLogin() {
-    const user: { _email: string; _password: string } = JSON.parse(
+    const user: { _id: number; _email: string; _password: string } = JSON.parse(
       localStorage.getItem('user')
     );
     if (!!user)

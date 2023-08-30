@@ -13,10 +13,9 @@ import { NgIf, UpperCasePipe } from '@angular/common';
 import { AuthService } from '../auth/services/auth.service';
 import { Filter, MovieService } from '../movie/services/movie.service';
 import { FormsModule } from '@angular/forms';
-import { ModalComponent } from '../shared/components/modal/modal.component';
-import { MovieModule } from '../movie/movie.module';
 import { FilteringComponent } from '../movie/components/filtering/filtering.component';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * @title Toolbar overview
@@ -51,7 +50,8 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private movieService: MovieService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -60,6 +60,9 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
+    this.http.get('/api/test').subscribe((result) => {
+      console.log(result);
+    });
     this.authService.logout();
   }
 
