@@ -33,12 +33,12 @@ export class ReviewService {
     }
 
     this.movieService.movies[index].reviews.push(review);
-    const ratingCount = this.movieService.movies[index].reviews.length;
-    const newRatingValue =
-      (this.movieService.movies[index].rating_value * (ratingCount - 1) +
-        review.rating) /
-      ratingCount;
-    this.movieService.movies[index].rating = +newRatingValue.toFixed(2);
+    // const ratingCount = this.movieService.movies[index].reviews.length;
+    // const newRatingValue =
+    //   (this.movieService.movies[index].rating_value * (ratingCount - 1) +
+    //     review.rating) /
+    //   ratingCount;
+    // this.movieService.movies[index].rating = +newRatingValue.toFixed(2);
     this.movieService.movieSubject.next(this.movieService.getMovies());
   }
 }

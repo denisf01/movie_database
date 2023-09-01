@@ -6,17 +6,18 @@ export class Movie {
     private _id: number,
     private _title: string,
     private _description: string,
-    private _rating_value: number,
     private _img_url: string,
     private _release_year: number,
     private _genres: Genre[],
     private _reviews: Review[] = []
   ) {}
 
-  set rating(rating: number) {
-    this._rating_value = rating;
+  // set rating(rating: number) {
+  //   this._rating_value = rating;
+  // }
+  set id(id: number) {
+    this._id = id;
   }
-
   get reviews() {
     return this._reviews;
   }
@@ -26,8 +27,12 @@ export class Movie {
   get title() {
     return this._title;
   }
-  get rating_value() {
-    return this._rating_value;
+  get rating_value(): number {
+    let sum = 0;
+    for (let rating of this._reviews) {
+      sum += rating.rating;
+    }
+    return +(sum / this._reviews.length).toFixed(2) || 0;
   }
   get description() {
     return this._description;

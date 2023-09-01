@@ -100,7 +100,6 @@ export class MovieFormComponent implements OnInit {
           this.id,
           this.movieForm.get('title').value,
           this.movieForm.get('description').value,
-          this.movie.rating_value,
           this.movieForm.get('movieImg').value,
           this.movieForm.get('releaseYear').value.getFullYear(),
           this.movieForm.get('genres').value,
@@ -110,10 +109,10 @@ export class MovieFormComponent implements OnInit {
     } else {
       this.movieService.addMovie(
         new Movie(
-          Math.round(Math.random() * 10000),
+          -1,
           this.movieForm.get('title').value,
           this.movieForm.get('description').value,
-          0,
+
           this.movieForm.get('movieImg').value,
           this.movieForm.get('releaseYear').value.getFullYear(),
           this.movieForm.get('genres').value,

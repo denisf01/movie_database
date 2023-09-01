@@ -26,25 +26,41 @@ export class AuthService {
 
   login(email: string, password: string) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const user = this.users.find((user) => user.email === email);
-        if (!!user) {
-          if (user.password === password) {
+      this.http
+        .post('/api/users/login', {
+          email,
+          password,
+        })
+        .subscribe(
+          (result: { id: number; email: string; password: string }) => {
+            const user = new User(result.id, result.email, result.password);
             resolve(null);
             this.loggedInUser.next(user);
             localStorage.setItem('user', JSON.stringify(user));
-            return;
+          },
+          (error) => {
+            reject(new Error(error.error.message));
           }
-        }
-        reject(new Error('Login error'));
-      }, 1);
+        );
+      // setTimeout(() => {
+      //   const user = this.users.find((user) => user.email === email);
+      //   if (!!user) {
+      //     if (user.password === password) {
+      //       resolve(null);
+      //       this.loggedInUser.next(user);
+      //       localStorage.setItem('user', JSON.stringify(user));
+      //       return;
+      //     }
+      //   }
+      //   reject(new Error('Login error'));
+      // }, 1);
     });
   }
 
   register(email: string, password: string) {
     return new Promise((resolve, reject) => {
       this.http
-        .post('/api/users', {
+        .post('/api/users/register', {
           email,
           password,
         })

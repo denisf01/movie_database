@@ -40,6 +40,9 @@ export class FilteringComponent implements OnInit {
     this.genreList = this.movieService.getGenres();
     this.genreInput.setValue(this.movieService.getMovieFilter().filterGenres);
     this.sortByRating = this.movieService.getMovieFilter().sortByRating;
+    this.movieService.genreSubject.subscribe((genres: Genre[]) => {
+      this.genreList = genres;
+    });
   }
   onChange() {
     const oldFilter = this.movieService.getMovieFilter();

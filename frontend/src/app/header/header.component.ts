@@ -60,9 +60,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    this.http.get('/api/test').subscribe((result) => {
-      console.log(result);
-    });
     this.authService.logout();
   }
 

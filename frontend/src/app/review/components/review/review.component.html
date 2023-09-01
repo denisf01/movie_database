@@ -1,42 +1,44 @@
-<div class="review" id="style-1">
-  <mat-list>
-    <div *ngFor="let review of reviews">
-      <mat-list-item>
-        <span matListItemTitle
-          >{{ review.userEmail + " - " + review.rating
-          }}<mat-icon style="color: yellow">star</mat-icon></span
-        >
-        <span style="height: 10rem" matListItemLine>
-          {{ review.message }}
-        </span>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </div>
-  </mat-list>
-</div>
-<div>
-  <div>
-    <mat-star-rating
-      [rating]="rating"
-      (ratingUpdated)="onRatingChanged($event)"
-    ></mat-star-rating>
+<div style="position: relative; height: 60vh">
+  <div class="review" id="style-1">
+    <mat-list>
+      <div *ngFor="let review of reviews">
+        <mat-list-item>
+          <span matListItemTitle
+            >{{ review.userEmail + " - " + review.rating
+            }}<mat-icon style="color: yellow">star</mat-icon></span
+          >
+          <span style="height: 10rem" matListItemLine>
+            {{ review.message }}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-list>
   </div>
-  <textarea
-    placeholder="Write short review:"
-    #reviewInput
-    class="mat-input-wrapper"
-    matInput
-  ></textarea>
-  <div>
-    <button
-      *ngIf="!error"
-      [disabled]="reviewInput.value.length === 0 || !rating"
-      (click)="onSubmit(reviewInput)"
-      color="primary"
-      mat-raised-button
-    >
-      Submit
-    </button>
-    <div class="alert alert-danger" *ngIf="!!error">{{ error }}</div>
+  <div style="position: absolute; bottom: 0; left: 15%">
+    <div>
+      <mat-star-rating
+        [rating]="rating"
+        (ratingUpdated)="onRatingChanged($event)"
+      ></mat-star-rating>
+    </div>
+    <textarea
+      placeholder="Write short review:"
+      #reviewInput
+      class="mat-input-wrapper"
+      matInput
+    ></textarea>
+    <div>
+      <button
+        *ngIf="!error"
+        [disabled]="reviewInput.value.length === 0 || !rating"
+        (click)="onSubmit(reviewInput)"
+        color="primary"
+        mat-raised-button
+      >
+        Submit
+      </button>
+      <div class="alert alert-danger" *ngIf="!!error">{{ error }}</div>
+    </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ export class ReviewComponent implements OnInit {
     this.movieService.movieSubject.subscribe((movies: Movie[]) => {
       this.reviews = movies
         .find((el) => el.id === this.movie.id)
-        .reviews.slice();
+        ?.reviews.slice();
     });
   }
 
@@ -34,6 +34,7 @@ export class ReviewComponent implements OnInit {
     this.reviewService.addReview(
       this.movie,
       new Review(
+        0,
         this.authService.loggedInUser.value.email,
         reviewInput.value,
         this.rating
