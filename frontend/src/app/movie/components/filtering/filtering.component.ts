@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Genre } from '../../models/genre.model';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../services/movie.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BehaviorSubject } from 'rxjs';
 

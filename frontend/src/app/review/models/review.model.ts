@@ -8,6 +8,9 @@ export class Review {
   get id() {
     return this._id;
   }
+  set id(id: number) {
+    this._id = id;
+  }
   get rating() {
     return this._rating;
   }

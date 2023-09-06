@@ -1,8 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Movie } from '../models/movie.model';
 import { Genre } from '../models/genre.model';
 import { Subject } from 'rxjs';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Review } from '../../review/models/review.model';
 import { AuthService } from '../../auth/services/auth.service';
 
@@ -144,47 +144,6 @@ export class MovieService {
     return this.watchlist.findIndex((movie) => movie.id === id) !== -1;
   }
 
-  removeMovie(id: number) {
-    this.movies = this.movies.filter((movie) => movie.id !== id);
-    this.removeFromWatchlist(id);
-    this.movieSubject.next(this.getMovies());
-    this.http.delete('/api/movies/' + id).subscribe();
-  }
-  addMovie(movie: Movie) {
-    this.http
-      .post('/api/movies', {
-        title: movie.title,
-        description: movie.description,
-        img_url: movie.img_url,
-        release_year: movie.release_year,
-        genres: movie.genres.map((genre) => {
-          return { id: genre.id };
-        }),
-      })
-      .subscribe((result: any) => {
-        movie.id = result.id;
-        this.movies.push(movie);
-        this.movieSubject.next(this.getMovies());
-      });
-  }
-  editMovie(movie: Movie) {
-    const index = this.movies.findIndex((el) => el.id === movie.id);
-    if (index === -1) return;
-    this.movies[index] = movie;
-    this.movieSubject.next(this.getMovies());
-    this.http
-      .put('/api/movies/' + movie.id, {
-        id: movie.id,
-        title: movie.title,
-        description: movie.description,
-        img_url: movie.img_url,
-        release_year: movie.release_year,
-        genres: movie.genres.map((genre) => {
-          return { id: genre.id };
-        }),
-      })
-      .subscribe();
-  }
   private filterGenres(genres: Genre[], movie: Movie) {
     for (let genre of genres) {
       if (!movie.genres.includes(genre)) return false;

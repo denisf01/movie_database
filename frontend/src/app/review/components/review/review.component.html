@@ -5,8 +5,16 @@
         <mat-list-item>
           <span matListItemTitle
             >{{ review.userEmail + " - " + review.rating
-            }}<mat-icon style="color: yellow">star</mat-icon></span
-          >
+            }}<mat-icon style="color: yellow">star</mat-icon>
+            <span
+              *ngIf="
+                review.userEmail === this.authService.loggedInUser.value.email
+              "
+              ><button (click)="onReviewDelete(review)" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button></span
+            >
+          </span>
           <span style="height: 10rem" matListItemLine>
             {{ review.message }}
           </span>

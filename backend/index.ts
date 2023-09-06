@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import mysql, { Connection, ConnectionOptions, ResultSetHeader } from "mysql2";
+import mysql, { ResultSetHeader } from "mysql2";
 
 dotenv.config();
 const conn = mysql.createConnection({
@@ -18,7 +18,16 @@ const port = process.env.PORT;
 
 app.delete("/api/movies/:id", (req: Request, res: Response) => {
   const id = +req.params.id;
+  conn.query("DELETE FROM movie_genres WHERE movie_id = ?", [id]);
+  conn.query("DELETE FROM ratings_reviews WHERE movie_id = ?", [id]);
+  conn.query("DELETE FROM user_watchlist WHERE movie_id = ?", [id]);
   conn.query("DELETE FROM movies WHERE id = ?", [id]);
+});
+
+app.delete("/api/reviews/:id", (req: Request, res: Response) => {
+  const id = req.params.id;
+  conn.query("DELETE FROM ratings_reviews WHERE id = ?", [id]);
+  res.send(null);
 });
 
 app.delete("/api/watchlist/:userId/:movieId", (req: Request, res: Response) => {
@@ -28,6 +37,27 @@ app.delete("/api/watchlist/:userId/:movieId", (req: Request, res: Response) => {
     userId,
     movieId,
   ]);
+});
+
+app.post("/api/reviews", (req: Request, res: Response) => {
+  conn.query<ResultSetHeader>(
+    "INSERT INTO ratings_reviews(movie_id, user_id, rating_value, review_text) VALUES (?, ?, ?, ?)",
+    [
+      req.body.movie_id,
+      req.body.user_id,
+      req.body.rating_value,
+      req.body.review_text,
+    ],
+    (_err, result: ResultSetHeader) => {
+      if (!!_err) {
+        console.log(_err);
+        return;
+      }
+      res.send({
+        id: result.insertId,
+      });
+    }
+  );
 });
 
 app.post("/api/watchlist", (req: Request, res: Response) => {
@@ -101,7 +131,7 @@ app.post("/api/movies", (req: Request, res: Response) => {
   conn.query<ResultSetHeader>(
     "INSERT INTO movies(title, description, img_url, release_year) VALUES (?, ?, ?, ?)",
     [movie.title, movie.description, movie.img_url, movie.release_year],
-    (_err, result) => {
+    (_err, result: ResultSetHeader) => {
       if (!!_err) {
         console.log(_err);
         return;
@@ -223,7 +253,7 @@ app.post("/api/users/register", (req: Request, res: Response) => {
   );
 });
 
-app.post("/api/users/login", (req: Request, res: Response) => {
+app.post("/api/users/login/", (req: Request, res: Response) => {
   conn.query(
     "SELECT * FROM users WHERE email = ?",
     [req.body.email],

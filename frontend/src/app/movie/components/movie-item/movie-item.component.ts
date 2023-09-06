@@ -41,7 +41,7 @@ export class MovieItemComponent {
   }
   onDelete(event: Event) {
     event.stopPropagation();
-    this.adminService.removeMovieFromList(this.movie.id);
+    this.adminService.removeMovie(this.movie.id);
   }
   onEdit(event: Event) {
     event.stopPropagation();

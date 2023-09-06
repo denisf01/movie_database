@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  Injectable,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,9 @@ import { Genre } from '../../../movie/models/genre.model';
 import { MovieService } from '../../../movie/services/movie.service';
 import { Movie } from '../../../movie/models/movie.model';
 import { BehaviorSubject } from 'rxjs';
+import { AdminService } from '../../services/admin.service';
 
+@Injectable()
 class CustomDateAdapter extends NativeDateAdapter {
   override format(date: Date): string {
     return `${date.getFullYear()}`;
@@ -77,7 +79,8 @@ export class MovieFormComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private adminService: AdminService
   ) {}
 
   onYearSelected(date: Date, datepicker: MatDatepicker<Date>) {
@@ -95,7 +98,7 @@ export class MovieFormComponent implements OnInit {
 
   onSubmit() {
     if (this.isEdit) {
-      this.movieService.editMovie(
+      this.adminService.editMovie(
         new Movie(
           this.id,
           this.movieForm.get('title').value,
@@ -107,7 +110,7 @@ export class MovieFormComponent implements OnInit {
         )
       );
     } else {
-      this.movieService.addMovie(
+      this.adminService.addMovie(
         new Movie(
           -1,
           this.movieForm.get('title').value,

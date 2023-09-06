@@ -18,15 +18,13 @@ export class ReviewComponent implements OnInit {
   movie: Movie;
   constructor(
     private reviewService: ReviewService,
-    private authService: AuthService,
+    public authService: AuthService,
     private movieService: MovieService
   ) {}
   ngOnInit() {
     this.reviews = this.reviewService.getReviews(this.movie);
     this.movieService.movieSubject.subscribe((movies: Movie[]) => {
-      this.reviews = movies
-        .find((el) => el.id === this.movie.id)
-        ?.reviews.slice();
+      this.reviews = this.reviewService.getReviews(this.movie);
     });
   }
 
@@ -34,7 +32,7 @@ export class ReviewComponent implements OnInit {
     this.reviewService.addReview(
       this.movie,
       new Review(
-        0,
+        -1,
         this.authService.loggedInUser.value.email,
         reviewInput.value,
         this.rating
@@ -47,5 +45,9 @@ export class ReviewComponent implements OnInit {
   }
   onRatingChanged(rating: number) {
     this.rating = rating;
+  }
+  onReviewDelete(review: Review) {
+    this.reviewService.deleteReview(review.id);
+    this.error = '';
   }
 }
