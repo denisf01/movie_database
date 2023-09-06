@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
-import { BehaviorSubject, map, Subject, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   HttpClient,
@@ -42,18 +42,6 @@ export class AuthService {
             reject(new Error(error.error.message));
           }
         );
-      // setTimeout(() => {
-      //   const user = this.users.find((user) => user.email === email);
-      //   if (!!user) {
-      //     if (user.password === password) {
-      //       resolve(null);
-      //       this.loggedInUser.next(user);
-      //       localStorage.setItem('user', JSON.stringify(user));
-      //       return;
-      //     }
-      //   }
-      //   reject(new Error('Login error'));
-      // }, 1);
     });
   }
 
@@ -72,13 +60,6 @@ export class AuthService {
             reject(new Error(error.error.message));
           }
         );
-      // setTimeout(() => {
-      //   if (this.users.findIndex((user) => user.email === email) !== -1) {
-      //     reject(new Error('User already exists!'));
-      //   }
-      //   this.users.push(new User(email, password));
-      //   resolve(null);
-      // }, 1);
     });
   }
 

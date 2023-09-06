@@ -12,9 +12,6 @@ export class Movie {
     private _reviews: Review[] = []
   ) {}
 
-  // set rating(rating: number) {
-  //   this._rating_value = rating;
-  // }
   set id(id: number) {
     this._id = id;
   }

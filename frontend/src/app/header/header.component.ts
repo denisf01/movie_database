@@ -63,11 +63,6 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
-  onFilterClick() {}
-  // onSearchClick(searchInput: HTMLInputElement) {
-  //   this.movieService.setMovieFilter(searchInput.value);
-  // }
-
   onAdd() {
     this.router.navigate(['add'], { relativeTo: this.route });
   }

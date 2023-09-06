@@ -1,14 +1,5 @@
 <app-header></app-header>
 
-<!--<mat-grid-list [cols]="5" rowHeight="1:1.6">-->
-<!--  <mat-grid-tile *ngFor="let movie of watchlist">-->
-<!--    <app-movie-item-->
-<!--      (buttonClickHandler)="onButtonClick(movie)"-->
-<!--      [movie]="movie"-->
-<!--    ></app-movie-item>-->
-<!--  </mat-grid-tile>-->
-<!--</mat-grid-list>-->
-
 <mat-list class="movie-card-grid">
   <app-movie-item
     *ngFor="let movie of watchlist"

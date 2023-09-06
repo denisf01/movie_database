@@ -25,7 +25,6 @@ export class ModalComponent implements OnInit {
   }
 
   onClose() {
-    // if (this.open) this.open = !this.open;
     this.open.next(false);
   }
 }

@@ -1,18 +1,5 @@
 <app-header></app-header>
 
-<!--<mat-grid-list-->
-<!--  [cols]="listRows"-->
-<!--  rowHeight="1:1.6"-->
-<!--  (window:resize)="onResize($event)"-->
-<!--&gt;-->
-<!--  <mat-grid-tile *ngFor="let movie of movies">-->
-<!--    <app-movie-item-->
-<!--      (click)="onMovieItemClick(movie)"-->
-<!--      [movie]="movie"-->
-<!--      (buttonClickHandler)="onButtonClick(movie)"-->
-<!--    ></app-movie-item>-->
-<!--  </mat-grid-tile>-->
-<!--</mat-grid-list>-->
 <mat-list class="movie-card-grid">
   <app-movie-item
     *ngFor="let movie of movies"
