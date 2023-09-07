@@ -24,47 +24,9 @@ export class MovieService {
   private watchlist: Movie[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.http.get('/api/genres').subscribe((result: any[]) => {
-      for (let genre of result) {
-        this.genres.push(new Genre(genre.id, genre.name));
-      }
-      this.genreSubject.next(this.genres);
-    });
-    this.http.get('/api/movies').subscribe((result: any[]) => {
-      for (let movie of result)
-        this.movies.push(
-          new Movie(
-            movie.id,
-            movie.title,
-            movie.description,
-            movie.img_url,
-            movie.release_year,
-            movie.genres.map((genre) =>
-              this.genres.find((el) => el.id === genre.id)
-            ),
-            movie.reviews.map(
-              (review) =>
-                new Review(
-                  review.id,
-                  review.userEmail,
-                  review.message,
-                  review.rating
-                )
-            )
-          )
-        );
-      this.movieSubject.next(this.getMovies());
-    });
-    this.http
-      .get('/api/watchlist/' + this.authService.loggedInUser.value.id)
-      .subscribe((movies: any[]) => {
-        for (let movie of movies) {
-          this.watchlist.push(
-            this.movies.find((el) => el.id === movie.movie_id)
-          );
-        }
-        this.watchlistSubject.next(this.getWatchlist());
-      });
+    this.fetchGenres();
+    this.fetchMovies();
+    this.fetchWatchlist();
   }
 
   setMovieFilter(filter: Filter) {
@@ -149,6 +111,53 @@ export class MovieService {
       if (!movie.genres.includes(genre)) return false;
     }
     return true;
+  }
+  private fetchGenres() {
+    this.http.get('/api/genres').subscribe((result: any[]) => {
+      for (let genre of result) {
+        this.genres.push(new Genre(genre.id, genre.name));
+      }
+      this.genreSubject.next(this.genres);
+    });
+  }
+  private fetchMovies() {
+    this.http.get('/api/movies').subscribe((result: any[]) => {
+      for (let movie of result)
+        this.movies.push(
+          new Movie(
+            movie.id,
+            movie.title,
+            movie.description,
+            movie.img_url,
+            movie.release_year,
+            movie.genres.map((genre) =>
+              this.genres.find((el) => el.id === genre.id)
+            ),
+            movie.reviews.map(
+              (review) =>
+                new Review(
+                  review.id,
+                  review.userEmail,
+                  review.message,
+                  review.rating
+                )
+            )
+          )
+        );
+      this.movieSubject.next(this.getMovies());
+    });
+  }
+  private fetchWatchlist() {
+    this.http
+      .get('/api/watchlist/' + this.authService.loggedInUser.value.id)
+      .subscribe((movies: any[]) => {
+        for (let movie of movies) {
+          this.watchlist.push(
+            this.movies.find((el) => el.id === movie.movie_id)
+          );
+        }
+        this.watchlistSubject.next(this.getWatchlist());
+      });
   }
 }
 
