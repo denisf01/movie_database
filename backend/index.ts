@@ -277,6 +277,8 @@ app.post("/api/users/login/", (req: Request, res: Response) => {
   );
 });
 
+app.use(express.static("frontend"));
+
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

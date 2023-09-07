@@ -10,10 +10,6 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  users: User[] = [
-    new User(2, 'test@test.com', '123456'),
-    new User(0, 'admin', 'adminadmin'),
-  ];
   loggedInUser = new BehaviorSubject<User>(null);
   get isAdmin() {
     return this.loggedInUser.getValue().id === 0;

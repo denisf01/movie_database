@@ -27,6 +27,9 @@ export class MovieService {
     this.fetchGenres();
     this.fetchMovies();
     this.fetchWatchlist();
+    this.authService.loggedInUser.subscribe((value) => {
+      if (!!value) this.fetchWatchlist();
+    });
   }
 
   setMovieFilter(filter: Filter) {
@@ -114,6 +117,7 @@ export class MovieService {
   }
   private fetchGenres() {
     this.http.get('/api/genres').subscribe((result: any[]) => {
+      this.genres = [];
       for (let genre of result) {
         this.genres.push(new Genre(genre.id, genre.name));
       }
@@ -121,7 +125,10 @@ export class MovieService {
     });
   }
   private fetchMovies() {
+    this.movies = [];
     this.http.get('/api/movies').subscribe((result: any[]) => {
+      this.movies = [];
+
       for (let movie of result)
         this.movies.push(
           new Movie(
@@ -147,10 +154,12 @@ export class MovieService {
       this.movieSubject.next(this.getMovies());
     });
   }
+
   private fetchWatchlist() {
     this.http
       .get('/api/watchlist/' + this.authService.loggedInUser.value.id)
       .subscribe((movies: any[]) => {
+        this.watchlist = [];
         for (let movie of movies) {
           this.watchlist.push(
             this.movies.find((el) => el.id === movie.movie_id)
