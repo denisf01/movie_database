@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     RouterModule.forChild([
       {
-        path: 'auth',
+        path: '',
         component: AuthComponent,
       },
     ]),

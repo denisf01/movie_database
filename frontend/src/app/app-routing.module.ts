@@ -7,6 +7,20 @@ const routes: Routes = [
     redirectTo: 'auth',
     pathMatch: 'full',
   },
+  {
+    path: 'movies',
+    loadChildren: () =>
+      import('./movie/movie.module').then((m) => m.MovieModule),
+  },
+  {
+    path: 'watchlist',
+    loadChildren: () =>
+      import('./movie/watchlist.module').then((m) => m.WatchlistModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({

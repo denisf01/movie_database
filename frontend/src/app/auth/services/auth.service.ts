@@ -12,7 +12,9 @@ import {
 export class AuthService {
   loggedInUser = new BehaviorSubject<User>(null);
   get isAdmin() {
-    return this.loggedInUser.getValue().id === 0;
+    return !!this.loggedInUser.getValue()
+      ? this.loggedInUser.getValue().id === 0
+      : false;
   }
   constructor(
     private route: ActivatedRoute,

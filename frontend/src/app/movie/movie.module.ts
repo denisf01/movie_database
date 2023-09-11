@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
 import { RouterModule } from '@angular/router';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
@@ -12,9 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RatingComponent } from './components/rating/rating.component';
 import { ReviewComponent } from '../review/components/review/review.component';
 import { MatListModule } from '@angular/material/list';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { AdminModule } from '../admin/admin.module';
 import { MovieFormComponent } from '../admin/components/movie-form/movie-form.component';
@@ -25,10 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     MovieListComponent,
     MovieDetailsComponent,
-    MovieDetailsComponent,
     RatingComponent,
     ReviewComponent,
-    WatchlistComponent,
   ],
   imports: [
     HeaderComponent,
@@ -39,18 +34,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatTabsModule,
     MatIconModule,
     MatListModule,
-    MatDividerModule,
-    MatGridListModule,
     ModalComponent,
     HttpClientModule,
     RouterModule.forChild([
       {
-        path: 'watchlist',
-        component: WatchlistComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'movies',
+        path: '',
         component: MovieListComponent,
         canActivate: [AuthGuard],
         children: [
